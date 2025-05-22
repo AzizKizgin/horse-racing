@@ -87,7 +87,17 @@ onBeforeUnmount(() => {
         :width="80 - round * 10"
         :height="80 - round * 10"
       />
-      <div class="circle" :style="{ backgroundColor: horse.color }"></div>
+      <div
+        :style="{
+          backgroundColor: horse.color,
+          position: 'absolute',
+          top: 30 + 'px',
+          left: 30 + 'px',
+          width: 20 - round * 2 + 'px',
+          height: 20 - round * 2 + 'px',
+          borderRadius: '50%',
+        }"
+      ></div>
     </div>
 
     <!-- Leaderboard -->
@@ -121,15 +131,6 @@ onBeforeUnmount(() => {
   transition: transform 0.1s linear;
   margin-bottom: 5px;
   will-change: transform;
-}
-
-.circle {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
 }
 
 .leaderboard {
