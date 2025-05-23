@@ -18,7 +18,10 @@ const showResults = computed(() => store.state.showResults)
           <h3>Round: {{ Number(key) + 1 }} - {{ 1200 + Number(key) * 200 }} meters</h3>
           <ul>
             <li v-for="(horse, horseIndex) in horses" :key="horse.id">
-              <span class="color-dot" :style="{ backgroundColor: horse.color }"></span>
+              <span
+                class="color-dot"
+                :style="{ backgroundColor: horse.color, display: 'inline-block' }"
+              ></span>
               {{ horseIndex + 1 }}. Horse #{{ horse.id }}
             </li>
           </ul>
