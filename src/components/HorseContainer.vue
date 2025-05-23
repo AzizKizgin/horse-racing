@@ -88,14 +88,11 @@ onBeforeUnmount(() => {
         :height="80 - round * 10"
       />
       <div
+        class="horse-circle"
         :style="{
           backgroundColor: horse.color,
-          position: 'absolute',
-          top: 30 + 'px',
-          left: 30 + 'px',
           width: 20 - round * 2 + 'px',
           height: 20 - round * 2 + 'px',
-          borderRadius: '50%',
         }"
       ></div>
     </div>
@@ -127,7 +124,7 @@ onBeforeUnmount(() => {
 
 .gif-wrapper {
   position: relative;
-  display: inline-block;
+  display: flex;
   transition: transform 0.1s linear;
   margin-bottom: 5px;
   will-change: transform;
@@ -168,5 +165,12 @@ onBeforeUnmount(() => {
   border-radius: 50%;
   margin-right: 10px;
   border: 1px solid #555;
+}
+
+.horse-circle {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  border-radius: 50%;
 }
 </style>
