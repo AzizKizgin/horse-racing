@@ -4,6 +4,10 @@ import { horseColors } from '../constants/horseConstants'
 import { shuffleArray } from '../helpers/utils'
 import type { Horse } from '../models/horse'
 import { useStore } from 'vuex'
+import Results from './Results.vue'
+import HorseList from './HorseList.vue'
+import ContainerButton from './ContainerButton.vue'
+
 // Props
 const props = defineProps<{
   onFinish: (horse: Horse[]) => void
@@ -12,6 +16,7 @@ const props = defineProps<{
 // State
 const finishedHorses = ref<Horse[]>([])
 const tenHorses = ref<Horse[]>([])
+const isStarted = ref(false)
 
 const store = useStore()
 const round = computed(() => store.state.round)
@@ -27,11 +32,11 @@ function initializeHorses(): Horse[] {
     speed: Math.random() * 20 + 10,
   }))
 }
-
+const horses = initializeHorses()
 // Move horses each tick
 function moveHorses() {
   let allFinished = true
-
+  isStarted.value = true
   for (const horse of tenHorses.value) {
     if (horse.speed === 0) continue
 
@@ -39,7 +44,7 @@ function moveHorses() {
     const finishLine = window.innerWidth * 0.65
 
     if (horse.position >= finishLine) {
-      horse.position = finishLine
+      horse.position = finishLine + 20 // Move horse off-screen
       horse.speed = 0
       finishedHorses.value.push(horse)
     } else {
@@ -49,22 +54,20 @@ function moveHorses() {
 
   if (allFinished) {
     clearInterval(intervalId)
+    store.commit('setResults', finishedHorses.value)
+    store.commit('setShowResults', true)
     setTimeout(() => {
       props.onFinish(tenHorses.value)
+      isStarted.value = false
     }, 2000)
   }
 }
 
 // Start race
 function startRace() {
-  const horses = initializeHorses()
   tenHorses.value = shuffleArray(horses).slice(0, 10)
   intervalId = window.setInterval(moveHorses, 100)
 }
-
-onMounted(() => {
-  startRace()
-})
 
 onBeforeUnmount(() => {
   if (intervalId) clearInterval(intervalId)
@@ -73,6 +76,8 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="horse-container">
+    <Results />
+    <HorseList :horses="horses" />
     <!-- Horse animation -->
     <div
       v-for="horse in tenHorses"
@@ -107,6 +112,17 @@ onBeforeUnmount(() => {
           {{ index + 1 }}. Horse #{{ horse.id }}
         </li>
       </ul>
+      <div v-if="!isStarted">
+        <ContainerButton :onStart="startRace" title="Start Race" />
+        <ContainerButton
+          :onStart="() => store.commit('setShowResults', true)"
+          title="Show Results"
+        />
+        <ContainerButton
+          :onStart="() => store.commit('setShowHorseList', true)"
+          title="Show Horse List"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -128,10 +144,12 @@ onBeforeUnmount(() => {
   transition: transform 0.1s linear;
   margin-bottom: 5px;
   will-change: transform;
+  z-index: 1;
 }
 
 .leaderboard {
   position: absolute;
+
   top: 10px;
   right: 10px;
   background: rgba(255, 255, 255, 0.8);
