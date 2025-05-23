@@ -2,11 +2,11 @@
 // props
 const props = defineProps<{
   title: string
-  onStart: () => void
+  onPress: () => void
 }>()
 </script>
 <template>
-  <button @click="props.onStart" type="button" id="start-button" class="container-button">
+  <button @click="props.onPress" type="button" id="start-button" class="container-button">
     <span class="start-button-text">
       {{ props.title }}
     </span>

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-
-// Props for isshowResults
+import '../assets/main.css'
 
 const store = useStore()
 const results = computed(() => store.state.results)
 const round = computed(() => store.state.round)
 const showResults = computed(() => store.state.showResults)
-// assume this controls visibility
 </script>
 
 <template>
@@ -32,19 +30,6 @@ const showResults = computed(() => store.state.showResults)
 </template>
 
 <style scoped>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
 .results-container {
   background: white;
   width: 90%;
@@ -65,26 +50,5 @@ const showResults = computed(() => store.state.showResults)
   padding: 12px;
   border-radius: 8px;
   background-color: #f9f9f9;
-}
-
-.color-dot {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 10px;
-  border: 1px solid #555;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 </style>

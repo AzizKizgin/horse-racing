@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
 import { horseColors } from '../constants/horseConstants'
-import { shuffleArray } from '../helpers/utils'
+import { initializeHorses, shuffleArray } from '../helpers/utils'
 import type { Horse } from '../models/horse'
 import { useStore } from 'vuex'
 import Results from './Results.vue'
 import HorseList from './HorseList.vue'
 import ContainerButton from './ContainerButton.vue'
+import '../assets/main.css'
 
 // Props
 const props = defineProps<{
@@ -22,16 +23,6 @@ const store = useStore()
 const round = computed(() => store.state.round)
 let intervalId: number | undefined
 
-// Initialize 20 shuffled horses and select 10
-function initializeHorses(): Horse[] {
-  const indices = shuffleArray(Array.from({ length: 20 }, (_, i) => i))
-  return indices.map((index) => ({
-    id: index,
-    position: 0,
-    color: horseColors[index],
-    speed: Math.random() * 20 + 10,
-  }))
-}
 const horses = initializeHorses()
 // Move horses each tick
 function moveHorses() {
@@ -113,13 +104,13 @@ onBeforeUnmount(() => {
         </li>
       </ul>
       <div v-if="!isStarted">
-        <ContainerButton :onStart="startRace" title="Start Race" />
+        <ContainerButton :onPress="startRace" title="Start Race" />
         <ContainerButton
-          :onStart="() => store.commit('setShowResults', true)"
+          :onPress="() => store.commit('setShowResults', true)"
           title="Show Results"
         />
         <ContainerButton
-          :onStart="() => store.commit('setShowHorseList', true)"
+          :onPress="() => store.commit('setShowHorseList', true)"
           title="Show Horse List"
         />
       </div>
@@ -175,14 +166,6 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   margin-bottom: 6px;
-}
-
-.color-dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 10px;
-  border: 1px solid #555;
 }
 
 .horse-circle {
