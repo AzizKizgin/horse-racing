@@ -1,22 +1,22 @@
 export const horseColors = [
-  '#f71c19',
-  '#9c5a59',
-  '#594847',
-  '#e8890c',
-  '#966627',
-  '#bae010',
-  '#768535',
-  '#0af7a0',
-  '#166146',
-  '#07d3f7',
-  '#0b7487',
-  '#085dfc',
-  '#204385',
-  '#d105ff',
-  '#380a42',
-  '#e9b3f5',
-  '#eeeeee',
-  '#000000',
-  '#f5a1a1',
-  '#eef5a1',
+  '#e6194b', // vivid red
+  '#3cb44b', // bright green
+  '#ffe119', // yellow
+  '#0082c8', // strong blue
+  '#f58231', // orange
+  '#911eb4', // purple
+  '#46f0f0', // cyan
+  '#f032e6', // magenta
+  '#d2f53c', // lime
+  '#fabebe', // pink
+  '#008080', // teal
+  '#e6beff', // light purple
+  '#aa6e28', // brown
+  '#fffac8', // light yellow
+  '#800000', // maroon
+  '#aaffc3', // mint
+  '#808000', // olive
+  '#ffd8b1', // peach
+  '#000080', // navy
+  '#808080', // gray
 ]
