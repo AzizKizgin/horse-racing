@@ -1,4 +1,5 @@
 import { horseColors } from '../constants/horseConstants'
+import type { Horse } from '../models/horse'
 
 export function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -14,4 +15,14 @@ export function shuffleArray<T>(array: T[]): T[] {
     ;[array[i], array[j]] = [array[j], array[i]]
   }
   return array
+}
+
+export function initializeHorses(): Horse[] {
+  const indices = shuffleArray(Array.from({ length: 20 }, (_, i) => i))
+  return indices.map((index) => ({
+    id: index,
+    position: 0,
+    color: horseColors[index],
+    speed: Math.random() * 20 + 10,
+  }))
 }
