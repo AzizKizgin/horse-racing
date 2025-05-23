@@ -4,15 +4,38 @@ import { createStore } from 'vuex'
 export const store = createStore({
   state: () => ({
     round: 0,
+    results: {},
+    showResults: false,
+    showHorseList: false,
   }),
   mutations: {
     increment(state) {
       state.round++
     },
+    setResults(state, results) {
+      state.results[state.round] = results
+    },
+    setShowResults(state, showResults) {
+      state.showResults = showResults
+    },
+    setShowHorseList(state, showHorseList) {
+      state.showHorseList = showHorseList
+    },
   },
   actions: {
     increment({ commit }) {
       commit('increment')
+    },
+
+    setResults({ commit }, results) {
+      commit('setResults', results)
+    },
+    setShowResults({ commit }, showResults) {
+      commit('setShowResults', showResults)
+    },
+
+    setShowHorseList({ commit }, showHorseList) {
+      commit('setShowHorseList', showHorseList)
     },
   },
 })
