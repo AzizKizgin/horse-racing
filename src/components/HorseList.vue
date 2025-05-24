@@ -20,11 +20,16 @@ const showHorses = computed(() => store.state.showHorseList)
     @click.self="store.commit('setShowHorseList', false)"
   >
     <div class="leaderboard">
-      <h3>Horses</h3>
+      <div class="list-header">
+        <h3>Horses</h3>
+        <h3>Conditions</h3>
+      </div>
       <ul>
-        <li v-for="(horse, index) in horses" :key="horse.id">
+        <li v-for="(horse, index) in horses" :key="horse.id" class="horse-row">
           <span class="color-dot" :style="{ backgroundColor: horse.color }"></span>
-          {{ index + 1 }}. Horse #{{ horse.id }}
+          <span class="horse-rank">{{ index + 1 }}.</span>
+          <span class="horse-id">Horse #{{ horse.id }}</span>
+          <span class="horse-condition"> {{ horse.condition }}</span>
         </li>
       </ul>
     </div>
@@ -48,7 +53,7 @@ const showHorses = computed(() => store.state.showHorseList)
 .leaderboard h3 {
   margin-bottom: 12px;
   font-size: 1.5rem;
-  text-align: center;
+  text-align: flex-start;
 }
 
 .leaderboard ul {
@@ -62,5 +67,37 @@ const showHorses = computed(() => store.state.showHorseList)
   align-items: center;
   margin-bottom: 8px;
   font-size: 1rem;
+}
+
+.horse-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.horse-rank,
+.horse-id {
+  font-size: 14px;
+}
+
+.horse-condition {
+  margin-left: auto; /* pushes it to the end of the row */
+  font-size: 14px;
+  font-style: italic;
+  color: #666;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 </style>

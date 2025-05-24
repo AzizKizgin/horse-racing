@@ -24,5 +24,6 @@ export function initializeHorses(): Horse[] {
     position: 0,
     color: horseColors[index],
     speed: Math.random() * 20 + 10,
+    condition: Math.floor(Math.random() * 100 + 1),
   }))
 }
