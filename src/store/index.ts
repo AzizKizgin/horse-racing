@@ -21,6 +21,13 @@ export const store = createStore({
     setShowHorseList(state, showHorseList) {
       state.showHorseList = showHorseList
     },
+
+    reset(state) {
+      state.round = 0
+      state.results = {}
+      state.showResults = false
+      state.showHorseList = false
+    },
   },
   actions: {
     increment({ commit }) {
@@ -36,6 +43,10 @@ export const store = createStore({
 
     setShowHorseList({ commit }, showHorseList) {
       commit('setShowHorseList', showHorseList)
+    },
+
+    reset({ commit }) {
+      commit('reset')
     },
   },
 })

@@ -8,6 +8,7 @@ import type { Horse } from './models/horse'
 const store = useStore()
 const round = computed(() => store.state.round)
 const increment = () => store.dispatch('increment')
+const reset = () => store.dispatch('reset')
 
 // Window width tracking
 const windowWidth = ref(window.innerWidth)
@@ -31,6 +32,8 @@ const onFinish = (horses: Horse[]) => {
       horse.speed = Math.random() * 20 + 10
     })
     increment()
+  } else {
+    reset()
   }
 }
 </script>
